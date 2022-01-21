@@ -28,22 +28,35 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
           >
             {isLogin ? <>
               <DropdownButton
-                variant="outline-light"
+                variant="link"
                 title={<img src="profile.png" style={{width : '50px' , height : '50px'}} alt='profile' className="rounded-circle"/>}
                 id="input-group-dropdown-1"
                 drop= "start"
+                menuVariant="dark"
               >
                 {isAdmin ?
                 <>
-                  <Dropdown.Item onClick = {()=> history.push('/addmusic')}>Add Music</Dropdown.Item>
-                  <Dropdown.Item onClick = {()=> history.push('/addartis')}>Add Artis</Dropdown.Item>
+                  <Dropdown.Item onClick = {()=> history.push('/addmusic')}>
+                    <img src="/addMusic.png" alt="bill" style={{marginRight : '10px'}}/>
+                    Add Music
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick = {()=> history.push('/addartis')}>
+                    <img src="/addArtis.png" alt="bill" style={{marginRight : '10px'}}/>
+                    Add Artis
+                  </Dropdown.Item>
                 </>:
                 <>
-                  <Dropdown.Item  onClick = {()=> history.push('/payment')}>Pay</Dropdown.Item>
+                  <Dropdown.Item  onClick = {()=> history.push('/payment')}>
+                    <img src="/bill.png" alt="bill" style={{marginRight : '10px'}}/>
+                    Pay
+                  </Dropdown.Item>
                 </>
                 }
                 <Dropdown.Divider />
-                <Dropdown.Item onClick = {handleLogOut}>Log Out</Dropdown.Item>
+                <Dropdown.Item onClick = {handleLogOut}>
+                  <img src="/logout.png" alt="bill" style={{marginRight : '10px'}}/>
+                  Log Out
+                </Dropdown.Item>
               </DropdownButton>
             </> : <>
               <Button onClick={()=>setModaLogin(true)} variant="outline-light" className="me-2 px-4">Login</Button>

@@ -12,6 +12,12 @@ const Home = ({isLogin, setShowModal}) => {
     fetchMusics();
   }, []);
 
+  useEffect(()=>{
+    if(!isLogin){
+      setmusicPlayIndex(null);
+    };
+  }, [isLogin])
+
   const fetchMusics = async () => {
     const data = await ApiServices.getMusics();
     setMusics(data);
@@ -28,7 +34,7 @@ const Home = ({isLogin, setShowModal}) => {
     <>
       <Jumbotron />
       <MusicList musics={musics} setPlayMusic={handlePlayMusic}/>
-      {musicPlayIndex? 
+      {musicPlayIndex !== null? 
         <MusicPlayer musics={musics} index={musicPlayIndex}/>:
         <></>
       }

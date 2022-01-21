@@ -25,6 +25,16 @@ const AddMusic = () => {
     setSingers(data);
   };
 
+  const clearInput = () => {
+    setInputs({
+      title : '', 
+      year : '', 
+      artisId : '', 
+      thumbnail : null,
+      attache : null
+    });
+  };
+
   const handleAddMusic = async () => {
     const formData = new FormData();
     formData.set('title', inputs.title);
@@ -34,9 +44,10 @@ const AddMusic = () => {
     formData.append('attache', inputs.attache);
     const error = await ApiServices.postMusic(formData);
     if(error){
-      return setAlert(error);
+      return setAlert({message : error, variant : 'danger'});
     };
-    setAlert('music added')
+    setAlert({message : 'music added', variant : 'success'});
+    clearInput();
   }
   return(
     <>
@@ -49,16 +60,21 @@ const AddMusic = () => {
             style = {{backgroundColor : 'rgba(210, 210, 210, 0.25)', color : 'rgba(210, 210, 210, 1)'}}
             type="text" 
             placeholder="Title" 
+            value ={inputs.title}
             onChange={(e) => setInputs({...inputs, title : e.target.value})}/>
           </Col>
           <Col sm={2}>
-            <Form.Label htmlFor="thumbnail" className="btn btn-outline-light" style ={{width : '100%', backgroundColor : 'rgba(210, 210, 210, 0.25)'}}>Attach Thumbnail</Form.Label>
+            <Form.Label htmlFor="thumbnail" className="btn btn-outline-light" style ={{width : '100%', backgroundColor : 'rgba(210, 210, 210, 0.25)'}}>
+              Attach Thumbnail
+              <img src="/attach.png" alt='icon' style={{marginLeft : '10px', height:'20px'}}/>
+            </Form.Label>
           </Col>
         </Row>
         <Form.Control 
           style = {{backgroundColor : 'rgba(210, 210, 210, 0.25)', color : 'rgba(210, 210, 210, 1)'}}
           type="number" 
           placeholder="Year" 
+          value = {inputs.year}
           onChange={(e) => setInputs({...inputs, year : e.target.value})} 
           className = "mb-2"
         />
@@ -66,8 +82,9 @@ const AddMusic = () => {
           style = {{backgroundColor : 'rgba(210, 210, 210, 0.25)', color : 'rgba(210, 210, 210, 1)'}}
           onChange={(e) => setInputs({...inputs, artisId : e.target.value})} 
           className = "mb-2"
+          value = {inputs.artisId}
         >
-          <option style={{backgroundColor : 'grey', color : 'white'}}>Singer</option>
+          <option value='' style={{backgroundColor : 'grey', color : 'white'}}>Singer</option>
           {singers.map(artis => <option style={{backgroundColor : 'grey', color : 'white'}} value = {artis.id} key = {artis.id}>{artis.name}</option>)}
         </Form.Select>
         <Row>

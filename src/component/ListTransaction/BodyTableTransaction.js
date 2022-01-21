@@ -19,14 +19,13 @@ const BodyTableTransaction = ({id, attache, status, user, remainingActive, index
       <td>{remainingActive}/hari</td>
       <td style={{color : statusUser === 'Not Active' ? '#FF0742' : '#0ACF83'}}>{statusUser}</td>
       <td style={{color : statusPaymenStyleColor()}}>{status}</td>
-      <td>
+      <td style={{textAlign : 'center'}}>
         {status !== 'pending' ? '-' :
           <Dropdown>
-            <Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={()=>handleAproveTransaction(id)}>Approved</Dropdown.Item>
-              <Dropdown.Item onClick={()=>handleCancelTransaction(id)}>Cancel</Dropdown.Item>
+            <Dropdown.Toggle split variant="link" id="dropdown-split-basic" />
+            <Dropdown.Menu variant="dark">
+              <Dropdown.Item onClick={()=>handleAproveTransaction(id)} style={{color : '#0ACF83'}}>Approved</Dropdown.Item>
+              <Dropdown.Item onClick={()=>handleCancelTransaction(id)} style={{color : '#FF0000'}}>Cancel</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         }

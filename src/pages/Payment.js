@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Col, Container, Row, Form, Button, Alert } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import ApiServices from "../Api/ApiServices";
 
 const Payment = () => {
@@ -7,7 +8,7 @@ const Payment = () => {
     accountNumber : '',
     attache : null
   });
-
+  const history = useHistory()
   const [alert, setAlert] = useState('');
 
   const handlePostTransaction = async () => {
@@ -16,8 +17,9 @@ const Payment = () => {
     formData.append('attache', inputs.attache);
     const error = await ApiServices.postTransaction(formData);
     if(error){
-      setAlert(error);
-    }
+      return  setAlert(error);
+    };
+    history.push('/');
   };
   return(
     <Container fluid style = {{paddingTop : '120px', backgroundColor : '#161616', height : '100vh', color : '#fff', textAlign : 'center'}}>
@@ -32,7 +34,10 @@ const Payment = () => {
       </Row>
       <Row className="justify-content-md-center">
         <Col md={3}>
-        <Form.Label htmlFor="attache" style ={{width : '100%', textAlign : 'left', color : '#EE4622', fontWeight : 'bold'}} className="btn btn-outline-light">Attache proof of transfer</Form.Label>
+        <Form.Label htmlFor="attache" style ={{width : '100%', textAlign : 'left', color : '#EE4622', fontWeight : 'bold'}} className="btn btn-outline-light d-flex justify-content-between">
+          <span>Attache proof of transfer</span>
+          <img src="/attach.png" alt='icon' style={{height : '20px'}} />
+        </Form.Label>
         </Col>
       </Row>
       <Form.Control onChange={(e) => setInputs({...inputs, attache : e.target.files[0]})} id="attache" type="file" className = "d-none"/>

@@ -21,11 +21,11 @@ const MusicPlayer = ({musics, index}) => {
     showDestroy : false,
     showReload : false,
     responsive : false, 
-    playIndex : index
+    playIndex : index,
   };
   return(
     <>
-      <ReactJkMusicPlayer {...options}/>
+      <ReactJkMusicPlayer {...options} />
     </>
   )
 };

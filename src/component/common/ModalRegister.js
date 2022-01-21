@@ -43,7 +43,7 @@ const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
           <></>
           }
           <Form.Control onChange = {(e) => setInputs({...inputs,email : e.target.value})} type ="text" placeholder="Email" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}/>
-          <Form.Control onChange = {(e) => setInputs({...inputs,password : e.target.value})} type="text" placeholder="Password" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}/>
+          <Form.Control onChange = {(e) => setInputs({...inputs,password : e.target.value})} type="password" placeholder="Password" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}/>
           <Form.Control onChange = {(e) => setInputs({...inputs,fullname : e.target.value})} type="text" placeholder="Fullname" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}/>
           <Form.Select onChange = {(e) => setInputs({...inputs,gender : e.target.value})} style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}>
             <option style={{backgroundColor : 'grey', color : 'white'}}>Choose Gender</option>
