@@ -1,6 +1,6 @@
 import { Dropdown } from "react-bootstrap";
 
-const BodyTableTransaction = ({id, attache, status, user, remainingActive, index, handleAproveTransaction, handleCancelTransaction}) => {
+const BodyTableTransaction = ({id, attache, status, user, remainingActive, index, handleAproveTransaction, handleCancelTransaction, setModal}) => {
   const statusUser = remainingActive !== 0? 'Active' : 'Not Active' ;
   const statusPaymenStyleColor = () => {
     if(status === 'pending'){
@@ -11,11 +11,12 @@ const BodyTableTransaction = ({id, attache, status, user, remainingActive, index
     };
     return '#FF0742'
   };
+  const attacheFileName = attache.split('/')[attache.split('/').length -1];
   return(
     <tr>
       <td>{index + 1}</td>
       <td>{user.fullname}</td>
-      <td>{attache}</td>
+      <td style={{cursor:'pointer'}} onClick={()=>setModal(attache)}>{attacheFileName}</td>
       <td>{remainingActive}/hari</td>
       <td style={{color : statusUser === 'Not Active' ? '#FF0742' : '#0ACF83'}}>{statusUser}</td>
       <td style={{color : statusPaymenStyleColor()}}>{status}</td>
