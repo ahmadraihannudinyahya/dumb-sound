@@ -15,18 +15,18 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
   useEffect(()=>{
     if(isAdmin){
       setBackground('#1F1F1F');
-    };
-    window.addEventListener('scroll', () => {
-      if(document.scrollingElement.scrollTop > 200) {
-        setBackground('#1F1F1F');
-      };
-      if(document.scrollingElement.scrollTop < 50) {
-        setBackground('');
-      };
-    });
+    }else{
+      window.addEventListener('scroll', () => {
+        if(document.scrollingElement.scrollTop > 100) {
+          setBackground('#1F1F1F');
+        } else {
+          setBackground('');
+        };
+      });
+    }
   }, [isAdmin]);
   return(
-    <Navbar variant="dark" fixed= {isAdmin? 'fixed-top' : 'top'} expand="md" style = {{ backgroundColor : background}}>
+    <Navbar variant="dark" fixed='top' expand="md" style = {{ backgroundColor : background}}>
       <Container fluid className="py-0 px-3">
         <Navbar.Brand onClick = {()=>history.push('/')} style={{cursor: 'pointer', marginLeft : '20px'}}>
           <img

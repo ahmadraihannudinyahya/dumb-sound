@@ -55,7 +55,7 @@ const AddMusic = () => {
   }
   return(
     <>
-      <Container fluid style = {{backgroundColor : "#161616", minHeight : '90vh'}} className = "p-5">
+      <Container fluid style = {{backgroundColor : "#161616", minHeight : '100vh', paddingTop : '120px'}} className = "p-5">
         <h3 className="mb-5" style = {{color : '#fff'}}>Add Music</h3>
         {alert.message? <Alert variant={alert.variant}>{alert.message}</Alert> : <></>}
         <Row>
