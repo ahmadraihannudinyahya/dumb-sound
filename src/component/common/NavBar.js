@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Container, Navbar, Nav, Button, Dropdown, DropdownButton} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) => {
+  const [ background, setBackground ] = useState('');
   const history = useHistory();
   const handleLogOut = () => {
     localStorage.removeItem('token');
@@ -9,8 +11,22 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
     setIslogin(false);
     history.push('/')
   };
+
+  useEffect(()=>{
+    if(isAdmin){
+      setBackground('#1F1F1F');
+    };
+    window.addEventListener('scroll', () => {
+      if(document.scrollingElement.scrollTop > 200) {
+        setBackground('#1F1F1F');
+      };
+      if(document.scrollingElement.scrollTop < 50) {
+        setBackground('');
+      };
+    });
+  }, [isAdmin]);
   return(
-    <Navbar variant="dark" bg = {isAdmin? 'dark' : 'transparant'} fixed= {isAdmin? 'fixed-top' : 'top'} expand="md" style = {{height : '10vh', backgroundColor : 'transparant'}}>
+    <Navbar variant="dark" fixed= {isAdmin? 'fixed-top' : 'top'} expand="md" style = {{height : '10vh', backgroundColor : background}}>
       <Container fluid className="p-3">
         <Navbar.Brand onClick = {()=>history.push('/')} style={{cursor: 'pointer', marginLeft : '20px'}}>
           <img
