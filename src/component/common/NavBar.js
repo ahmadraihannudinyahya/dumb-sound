@@ -26,8 +26,8 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
     });
   }, [isAdmin]);
   return(
-    <Navbar variant="dark" fixed= {isAdmin? 'fixed-top' : 'top'} expand="md" style = {{height : '10vh', backgroundColor : background}}>
-      <Container fluid className="p-3">
+    <Navbar variant="dark" fixed= {isAdmin? 'fixed-top' : 'top'} expand="md" style = {{ backgroundColor : background}}>
+      <Container fluid className="py-0 px-3">
         <Navbar.Brand onClick = {()=>history.push('/')} style={{cursor: 'pointer', marginLeft : '20px'}}>
           <img
             src="/Logo.png"
@@ -37,12 +37,11 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-md-end">
+          {isLogin ? <>
           <Nav
-            className="me-auro my-2 my-lg-0"
+            className="me-auro my-2 my-lg-0 d-none d-md-block"
             style={{ maxHeight: '100px' }}
-            navbarScroll
           >
-            {isLogin ? <>
               <DropdownButton
                 variant="link"
                 title={<img src="profile.png" style={{width : '50px' , height : '50px'}} alt='profile' className="rounded-circle"/>}
@@ -75,11 +74,29 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
                   Log Out
                 </Dropdown.Item>
               </DropdownButton>
-            </> : <>
-              <Button onClick={()=>setModaLogin(true)} variant="outline-light" className="me-2 px-4">Login</Button>
-              <Button onClick={()=>setModalRegister(true)} variant="outline-light" className="me-2 px-4" style={{backgroundColor : "#EE4622"}}>Register</Button>
-            </>} 
           </Nav>
+
+          <Nav
+            className="me-auro my-2 my-lg-0 d-md-none"
+            style={{ maxHeight: '100px' }}
+          >
+            {isAdmin? <>
+              <Button onClick = {()=> history.push('/addmusic')} variant="outline-light" className="me-2 px-4 my-2">Add Music</Button>
+              <Button onClick = {()=> history.push('/addartis')} variant="outline-light" className="me-2 px-4 my-2">Add Artis</Button>
+            </>: <>
+              <Button onClick = {()=> history.push('/payment')} variant="outline-light" className="me-2 px-4 my-2">Pay</Button>
+            </>}
+            <Button onClick={handleLogOut} variant="outline-light" className="me-2 px-4 my-2" style={{backgroundColor : "#EE4622"}}>Log Out</Button>
+          </Nav>
+            </> : <>    
+          <Nav
+            className="me-auro my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+          >
+            <Button onClick={()=>setModaLogin(true)} variant="outline-light" className="me-2 px-4 my-2">Login</Button>
+            <Button onClick={()=>setModalRegister(true)} variant="outline-light" className="me-2 px-4 my-2" style={{backgroundColor : "#EE4622"}}>Register</Button>
+          </Nav>
+            </>} 
         </Navbar.Collapse>
 
       </Container>
