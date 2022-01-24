@@ -35,8 +35,8 @@ const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
   }
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body style={{backgroundColor: '#161616',padding : '33px' }}>
+      <Modal show={show} onHide={handleClose} centered className ="rounded-3">
+        <Modal.Body style={{backgroundColor: '#161616',padding : '33px' }} className ="rounded-3">
           <h2 style={{color:'#fff', margin : '19px 0'}}>Register</h2>
           {alert?
           <Alert variant="danger">{alert}</Alert>:
