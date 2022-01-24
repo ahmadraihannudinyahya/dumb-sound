@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Alert, Container, Row , Col} from 'react-bootstrap';
+import { Form, Button, Alert, Container, Row , Col, Spinner} from 'react-bootstrap';
 import ApiServices from "../Api/ApiServices";
 
 const AddMusic = () => {
@@ -7,6 +7,7 @@ const AddMusic = () => {
     message : '',
     variant : 'danger'
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [singers, setSingers] = useState([]);
   const [inputs, setInputs] = useState({
     title : '', 
@@ -36,6 +37,7 @@ const AddMusic = () => {
   };
 
   const handleAddMusic = async () => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.set('title', inputs.title);
     formData.set('year', inputs.year);
@@ -44,10 +46,12 @@ const AddMusic = () => {
     formData.append('attache', inputs.attache);
     const error = await ApiServices.postMusic(formData);
     if(error){
+      setIsLoading(false);
       return setAlert({message : error, variant : 'danger'});
     };
     setAlert({message : 'music added', variant : 'success'});
     clearInput();
+    setIsLoading(false);
   }
   return(
     <>
@@ -94,7 +98,13 @@ const AddMusic = () => {
         </Row>
         <Row className="justify-content-md-center">
           <Col sm={3}>
-            <Button onClick={handleAddMusic} style = {{backgroundColor : '#F58033', color : '#fff', fontWeight : 'bold', border : '0', textAlign : 'center', width : '100%'}}>Add Song</Button>
+            <Button onClick={handleAddMusic} style = {{backgroundColor : '#F58033', color : '#fff', fontWeight : 'bold', border : '0', textAlign : 'center', width : '100%'}} disabled = {isLoading ? true: false}>
+            {isLoading ?<Spinner as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true" /> : 'Add Song' }
+            </Button>
           </Col>
         </Row>
         <Form.Control  id="thumbnail" type="file" onChange={(e) => setInputs({...inputs, thumbnail : e.target.files[0]})} className = "d-none"/>

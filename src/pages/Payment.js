@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Container, Row, Form, Button, Alert } from "react-bootstrap";
+import { Col, Container, Row, Form, Button, Alert, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import ApiServices from "../Api/ApiServices";
 
@@ -8,15 +8,18 @@ const Payment = () => {
     accountNumber : '',
     attache : null
   });
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory()
   const [alert, setAlert] = useState('');
 
   const handlePostTransaction = async () => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.set('accountNumber', inputs.accountNumber);
     formData.append('attache', inputs.attache);
     const error = await ApiServices.postTransaction(formData);
     if(error){
+      setIsLoading(false);
       return  setAlert(error);
     };
     history.push('/');
@@ -43,7 +46,13 @@ const Payment = () => {
       <Form.Control onChange={(e) => setInputs({...inputs, attache : e.target.files[0]})} id="attache" type="file" className = "d-none"/>
       <Row className="justify-content-md-center mt-4">
         <Col md={3}>
-        <Button onClick={handlePostTransaction} style = {{backgroundColor : '#F58033', color : '#fff', fontWeight : 'bold', border : '0', textAlign : 'center', width : '100%'}}>Send</Button>
+        <Button onClick={handlePostTransaction} style = {{backgroundColor : '#F58033', color : '#fff', fontWeight : 'bold', border : '0', textAlign : 'center', width : '100%'}} disabled = {isLoading ? true: false}>
+        {isLoading ?<Spinner as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true" /> : 'Send' }
+        </Button>
         </Col>
       </Row>
     </Container>
