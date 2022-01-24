@@ -31,7 +31,8 @@ const NavBar = ({isLogin, isAdmin ,setModaLogin, setModalRegister, setIslogin}) 
                 variant="link"
                 title={<img src="profile.png" style={{width : '50px' , height : '50px'}} alt='profile' className="rounded-circle"/>}
                 id="input-group-dropdown-1"
-                drop= "start"
+                drop= "down"
+                align="end"
                 menuVariant="dark"
               >
                 {isAdmin ?
