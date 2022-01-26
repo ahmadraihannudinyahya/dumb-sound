@@ -18,7 +18,7 @@ const MusicCard = ({id, title, year, thumbnail, artis, setPlayMusic, index}) => 
                 </p>
               </Col>
             </Row>
-            <p className = "mt-1" style={{color : '#fff'}}>{artis.name}</p>
+            <p className = "mt-1" style={{color : '#fff'}}>{artis}</p>
           </Card.Text>
       </Card>
     </Col>
