@@ -32,7 +32,12 @@ const ApiServices = {
   },
   getMusics : async () => {
     try {
-      const response = await api.get('/music');
+      const token = localStorage.getItem('token');
+      const response = await api.get('/music', {
+        headers : {
+          Authorization :  `bearer ${token}`
+        }
+      });
       return response.data.data
     } catch (error) {
       console.log(error);
@@ -124,6 +129,22 @@ const ApiServices = {
       return 'something went wrong';
     };
   },
+  getMusicById : async (id) => {
+    try {
+      const result = await api.get(`/music/${id}`,{
+        headers : {
+          Authorization :  `bearer ${localStorage.getItem('token')}`,
+          'Content-Type' : 'multipart/form-data'
+        }
+      });
+      return result.data.data;
+    } catch (error) {
+      if(error.response){
+        return {isError : true, message : error.response.data.message}
+      };
+      console.log(error);
+    };
+  }, 
 };
 
 export default ApiServices;
