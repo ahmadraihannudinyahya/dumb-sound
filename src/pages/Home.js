@@ -3,14 +3,16 @@ import Jumbotron from "../component/home/Jumbotron";
 import MusicList from "../component/home/MusicList";
 import ApiServices from "../Api/ApiServices";
 import MusicPlayer from "../component/home/MusicPlayer";
+import { useHistory } from "react-router-dom";
 
 const Home = ({isLogin, setShowModal}) => {
   const [musics, setMusics] = useState([]);
   const [musicPlayIndex, setmusicPlayIndex] = useState(null);
+  const history = useHistory();
 
   useEffect(()=> {
     fetchMusics();
-  }, []);
+  }, [isLogin]);
 
   useEffect(()=>{
     if(!isLogin){
@@ -26,6 +28,9 @@ const Home = ({isLogin, setShowModal}) => {
   const handlePlayMusic = (index) => {
     if(!isLogin){
       return setShowModal(true);
+    }
+    if(!musics[0].attache){
+      return history.push('/payment')
     }
     setmusicPlayIndex(index);
   };

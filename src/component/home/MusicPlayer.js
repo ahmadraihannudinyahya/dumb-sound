@@ -1,5 +1,6 @@
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import 'react-jinke-music-player/assets/index.css';
+import './MusicPlayer.css';
 
 
 const MusicPlayer = ({musics, index}) => {

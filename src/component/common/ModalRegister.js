@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Button, Alert } from 'react-bootstrap';
+import { Modal, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import ApiServices from "../../Api/ApiServices";
 
 const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
@@ -13,12 +13,16 @@ const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
     address : '',
   });
   const [alert , setAlert] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitRegister = async () =>{
+    setIsLoading(true);
     const error = await ApiServices.postRegisterUser(inputs);
     if(error){
+      setIsLoading(false);
       return setAlert(error);
     };
+    setIsLoading(false);
     setIslogin(true);
     handleClose();
   };
@@ -35,8 +39,8 @@ const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
   }
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body style={{backgroundColor: '#161616',padding : '33px' }}>
+      <Modal show={show} onHide={handleClose} centered className ="rounded-3">
+        <Modal.Body style={{backgroundColor: '#161616',padding : '33px' }} className ="rounded-3">
           <h2 style={{color:'#fff', margin : '19px 0'}}>Register</h2>
           {alert?
           <Alert variant="danger">{alert}</Alert>:
@@ -52,7 +56,13 @@ const ModalRegister = ({show, setShow, setShowLogin, setIslogin}) => {
           </Form.Select>
           <Form.Control onChange = {(e) => setInputs({...inputs,phone : e.target.value})} type="number" placeholder="Phone" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2'}}/>
           <Form.Control onChange = {(e) => setInputs({...inputs,address : e.target.value})} as="textarea" rows={3} placeholder="Address" style ={{margin : '10px 0', backgroundColor : 'rgba(210, 210, 210, 0.25)', color : '#D2D2D2', resize : 'none'}}/>
-          <Button onClick={handleSubmitRegister}  style={{width : '100%', margin : '21px 0', backgroundColor : '#EE4622', color : '#fff', border : 'none'}}>Register</Button>
+          <Button onClick={handleSubmitRegister}  style={{width : '100%', margin : '21px 0', backgroundColor : '#EE4622', color : '#fff', border : 'none'}} disabled = {isLoading ? true: false}>
+          {isLoading ?<Spinner as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true" /> : 'Register' }
+          </Button>
           <p style={{color : '#B1B1B1', textAlign : 'center'}}>Already have an account ? <b onClick={handlerSwitchModal} style={{cursor : 'pointer'}}>Klik Here</b></p>
         </Modal.Body>
       </Modal>
