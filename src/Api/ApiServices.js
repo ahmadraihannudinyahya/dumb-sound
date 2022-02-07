@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL : 'https://dumbsound.ahmadyahya.site/api'
+  baseURL : 'https://dumb-sound-api.herokuapp.com/api'
 });
 
 const ApiServices = {
